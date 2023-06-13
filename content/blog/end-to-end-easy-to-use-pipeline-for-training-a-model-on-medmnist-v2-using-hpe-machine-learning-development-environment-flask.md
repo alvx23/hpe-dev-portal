@@ -267,11 +267,40 @@ class MyMEDMnistTrial(PyTorchTrial):
 
 Next, we’ll port the training and evaluation data loaders to the following class functions as follows. This is the code that trains one batch of data. You no longer need the standard for loop to iterate over batches or epochs inside these functions, since Determined will handle the training loop for you. 
 
-![Text
+```python
+    def build_training_data_loader(self) -> DataLoader:
+        DataClass = getattr(medmnist, self.info["python_class"])
 
+        if self.context.get_hparam("resize"):
+            data_transform = transforms.Compose(
+                [
+                    transforms.Resize((224, 224), interpolation=PIL.Image.NEAREST),
+                    transforms.ToTensor(),
+                    transforms.Normalize(mean=[0.5], std=[0.5]),
+                ]
+            )
+        else:
+            data_transform = transforms.Compose(
+                [transforms.ToTensor(), transforms.Normalize(mean=[0.5], std=[0.5])]
+            )
 
+        train_dataset = DataClass(
+            split="train",
+            transform=data_transform,
+            download=False,
+            as_rgb=True,
+            root=DATASET_ROOT,
+        )
+        train_loader = determined.pytorch.DataLoader(
+            dataset=train_dataset,
+            batch_size=self.context.get_per_slot_batch_size(),
+            shuffle=True,
+        )
 
-In each function, we initialize and return the relevant PyTorch DataLoader object (e.g. val_loader from build_validation_data_loader, and train_loader in build_training_data_loader).  
+        return train_loader
+```
+
+In each function, we initialize and return the relevant PyTorch DataLoader object (e.g. `val_loader from build_validation_data_loader`, and `train_loader in build_training_data_loader`).  
 
 #### Step 1.4 Port Training and Evaluation Functions 
 
