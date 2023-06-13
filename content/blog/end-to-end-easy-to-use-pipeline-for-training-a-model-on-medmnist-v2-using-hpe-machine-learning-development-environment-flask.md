@@ -2,10 +2,12 @@
 title: "End-to-end, easy-to-use pipeline for training a model on MedMNIST v2
   using HPE Machine Learning Development Environment & Flask "
 date: 2023-06-15T17:00:42.474Z
+priority: 5
 author: Isha Ghodgaonkar
 authorimage: /img/isha.jpeg
 thumbnailimage: null
 disable: false
+tags: []
 ---
 In this blog post, we’ll be covering how [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) can add value to your machine learning workflow, as well as how to utilize HPE Machine Learning Development Environment and Flask together to train and serve a model on a medical domain specific use case. An end-to-end workflow and step-by-step instructions are provided in Appendix A. 
 
