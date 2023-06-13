@@ -306,9 +306,43 @@ In each function, we initialize and return the relevant PyTorch DataLoader objec
 
 Finally, we’ll port our training and evaluation functions to the following class functions by including the relevant steps to train and evaluate our model on one batch of data. Here, make sure to remove the for-loop iterating over epochs and include only the relevant code corresponding to one data batch. HPE Machine Learning Development Environment handles the training loop behind the scenes.  
 
-![Text
+```python
+    def train_batch(
+        self, batch: TorchData, epoch_idx: int, batch_idx: int
+    ) -> Dict[str, Any]:
+        inputs, targets = batch
+        outputs = self.model(inputs)
 
+        if self.context.get_hparam("task") == "multi-label, binary-class":
+            targets = targets.to(torch.float32)
+            loss = self.criterion(outputs, targets)
+        else:
+            targets = torch.squeeze(targets, 1).long()
+            loss = self.criterion(outputs, targets)
 
+        self.context.backward(loss)
+        self.context.step_optimizer(self.optimizer)
+
+        return {"loss": loss}
+
+    def evaluate_batch(self, batch: TorchData) -> Dict[str, Any]:
+        inputs, targets = batch
+        outputs = self.model(inputs)
+
+        if self.context.get_hparam("task") == "multi-label, binary-class":
+            targets = targets.to(torch.float32)
+            loss = self.criterion(outputs, targets)
+            m = nn.Sigmoid()
+            outputs = m(outputs)
+        else:
+            targets = torch.squeeze(targets, 1).long()
+            loss = self.criterion(outputs, targets)
+            m = nn.Softmax(dim=1)
+            outputs = m(outputs)
+            targets = targets.float().resize_(len(targets), 1)
+
+        return {"test_loss": loss}
+```
 
 Notice that in all functions we’ve defined as part of MyMEDMnistTrial, we have removed all instances of manual device management, metric logging, and accuracy calculations. HPE Machine Learning Development Environment’s Trial APIs handle these automatically, given only the Trial definition and configuration file.  
 
