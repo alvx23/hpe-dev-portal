@@ -155,7 +155,7 @@ Determined automatically checkpoints in the following situations: 
 
 Additional checkpoint configuration settings can be modified to make this even more customizable. Checkpoints can be easily examined through the WebUI even after an experiment completes, and downloaded easily through the Determined APIs: 
 
-![A screenshot of a computer
+![](/img/screenshot3.png)
 
 
 
@@ -165,9 +165,18 @@ Hyperparameter search refers to the process of searching for the optimal configu
 
 With Determined, configuring hyperparameter search is easy. Defining hyperparameters, either static or in ranges, is easy through experiment configuration: 
 
-![A screen shot of a computer
-
-
+```
+hyperparameters:
+    global_batch_size: 128
+    data_flag: pathmnist
+    dataset_name: "pathmnist.npz"
+    model_flag: resnet18
+    lr: 0.001
+    gamma: 0.1
+    resize: True
+    task: "multi-class"
+    num_epochs: 15
+```
 
 In this case, the “hyperparameters” feature can also be used to switch between datasets and types of training tasks if configured appropriately in the training script – which is neat! 
 
@@ -197,15 +206,22 @@ The original script has some boilerplate code that can be removed since HPE Mach
 
 Once your admin has provisioned a cluster with HPE Machine Learning Development Environment and configured you as a user, connect to HPE Machine Learning Development Environment by exporting the DET_MASTER variable: 
 
-export DET_MASTER=<your cluster address> \
- \
+```yaml
+export DET_MASTER=<your cluster address>
+```
+
+\
 Then log in as your user: 
 
-det login user <your username> 
+```yaml
+det login user <your username>
+```
 
 You can check to make sure you are logged in via 
 
-det user whoami 
+```yaml
+det user whoami
+```
 
 Refer to the Determined User Guide and the Reference Page for more information on how to interact with the cluster.  
 
