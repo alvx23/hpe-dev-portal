@@ -231,9 +231,37 @@ In steps 1.2 – 1.4, we’re going to describe how to port this model to HPE Ma
 
 To train your own custom model using one of Determined’s high level APIs, such as the PyTorch API, you need to port your code to the API first. We provide a template of all the functions Determined needs to run your training loop [here](https://docs.determined.ai/latest/training/apis-howto/api-pytorch-ug.html#pytorch-trial). Fill them out one by one to port your code. Once these functions are populated, Determined can use these along with the provided configuration file, to run your experiment. 
 
-To start, create a class definition that inherits from PyTorchTrial (this is the template referred to above). Create a context (line 29). This is like an interface to the Determined master, allowing you to communicate back and forth with it. Also include the model, optimizer, and criterion in the initialization function so that Determined is aware of them. Make each object an attribute of the class as shown below and transfer relevant hyperparameters to config.yaml. As shown here, we can obtain hyperparameters defined in this configuration file by calling self.context.get_hparam(), making it easier to change these hyperparameters without modifying training code.  
+To start, create a class definition that inherits from PyTorchTrial (this is the template referred to above). Create a context (line 29). This is like an interface to the Determined master, allowing you to communicate back and forth with it. Also include the model, optimizer, and criterion in the initialization function so that Determined is aware of them. Make each object an attribute of the class as shown below and transfer relevant hyperparameters to `config.yaml`. As shown here, we can obtain hyperparameters defined in this configuration file by calling `self.context.get_hparam()`, making it easier to change these hyperparameters without modifying training code.  
 
-![Text
+```python
+class MyMEDMnistTrial(PyTorchTrial):
+    def __init__(self, context: PyTorchTrialContext) -> None:
+        self.context = context
+
+        self.info = INFO[self.context.get_hparam("data_flag")]
+        task = self.info["task"]
+        n_classes = len(self.info["label"])
+
+        self.context = context
+        if self.context.get_hparam("model_flag") == "resnet18":
+            model = resnet18(pretrained=False, num_classes=n_classes)
+        elif self.context.get_hparam("model_flag") == "resnet50":
+            model = resnet50(pretrained=False, num_classes=n_classes)
+        else:
+            raise NotImplementedError
+
+        self.model = self.context.wrap_model(model)
+
+        optimizer = torch.optim.Adam(
+            self.model.parameters(), lr=self.context.get_hparam("lr")
+        )
+        self.optimizer = self.context.wrap_optimizer(optimizer)
+
+        if self.context.get_hparam("task") == "multi-label, binary-class":
+            self.criterion = nn.BCEWithLogitsLoss()
+        else:
+            self.criterion = nn.CrossEntropyLoss()
+```
 
 #### Step 1.3 Port Data Loaders  
 
