@@ -12,7 +12,7 @@ tags:
   - data-ml-engineer
   - determined-ai
 ---
-In this blog post, we’ll be covering how [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) can add value to your machine learning workflow, as well as how to utilize HPE Machine Learning Development Environment and Flask together to train and serve a model on a medical domain-specific use case. An end-to-end workflow and step-by-step instructions are provided in Appendix A. 
+In this blog post, we’ll be covering how [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) can add value to your machine learning workflow, as well as how to utilize HPE Machine Learning Development Environment and Flask together to train and serve a model on a medical domain-specific use case. An end-to-end workflow and step-by-step instructions are provided in Appendix A. If you want to jump right in, the [repository](https://github.com/ighodgao/determined_medmnist_e2e) contains all code referenced in this post as well as instructions to run.
 
 ## Introduction 
 
@@ -26,7 +26,7 @@ The goal of training a model on this dataset is to accurately classify images in
 
 ![](/img/adipose.jpeg)
 
-` "prediction": "adipose" `
+`"prediction": "adipose"`
 
 ### HPE Machine Learning Development Environment 
 
