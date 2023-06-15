@@ -9,7 +9,7 @@ thumbnailimage: null
 disable: false
 tags: []
 ---
-In this blog post, we’ll be covering how [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) can add value to your machine learning workflow, as well as how to utilize HPE Machine Learning Development Environment and Flask together to train and serve a model on a medical domain specific use case. An end-to-end workflow and step-by-step instructions are provided in Appendix A. 
+In this blog post, we’ll be covering how [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) can add value to your machine learning workflow, as well as how to utilize HPE Machine Learning Development Environment and Flask together to train and serve a model on a medical domain-specific use case. An end-to-end workflow and step-by-step instructions are provided in Appendix A. 
 
 ## Introduction 
 
@@ -38,7 +38,7 @@ Researchers currently write training scripts that include not only the core ML f
 \
 Additionally, collaboration is an important part of ML development. Many research teams don’t have the appropriate resources to share experiment results or share GPU infrastructure, resulting in a lack of reproducibility and ad-hoc resource management. This frustration due to a lack of high-quality resources causes slow progress and is a common reason why ML projects fail.  
 
-In this blog post, we’ll see firsthand how HPE Machine Learning Development Environment can remove infrastructure code in a real-world research script and at the same time, provide out-of-the-box distributed training, checkpointing, hyperparameter search, and visualization functionality, drastically accelerating research teams’ capabilities. We’ll also touch on the features that allow teams to collaborate effectively. 
+In this blog post, we’ll see firsthand how HPE Machine Learning Development Environment can remove infrastructure code in a real-world research script and, at the same time, provide out-of-the-box distributed training, checkpointing, hyperparameter search, and visualization functionality, drastically accelerating research teams’ capabilities. We’ll also touch on the features that allow teams to collaborate effectively. 
 
 If you are interested in more details about how this example was developed, take a look at the Appendix. For a full, in-depth, model porting guide, check out this [model porting guide.](https://docs.determined.ai/latest/tutorials/pytorch-porting-tutorial.html) The code for this example and instructions to run can be found in the [repository](https://github.com/ighodgao/determined_medmnist_e2e). 
 
@@ -92,13 +92,13 @@ However, this is difficult to set up and difficult to manage: manual interaction
 
 Determined not only takes away the need to automatically interface with individual GPUs, but is also fault-tolerant. Let’s take a look at how the [original training script](https://github.com/MedMNIST/experiments/blob/main/MedMNIST2D/train_and_eval_pytorch.py) handles running the model on GPUs: 
 
-In line 291, the gpu_ids are received from input arguments from the user: 
+In line 291, the `gpu_ids` are received from input arguments from the user: 
 
 ```python
     gpu_ids = args.gpu_ids
 ```
 
- The device is configured using only the first gpu_id (distributed training is not yet enabled): 
+ The device is configured using only the first `gpu_id` (distributed training is not yet enabled): 
 
 ```python
     device = torch.device('cuda:{}'.format(gpu_ids[0])) if gpu_ids else torch.device('cpu') 
@@ -118,7 +118,7 @@ As well as the inputs to the model, for example, in line 190: 
 
 The variable “device” is referenced a total of 27 times in the training script, for purposes like porting other inputs to the GPU, and passing the device variable around to different functions so they are aware of the GPU. This is a perfect example of how a researcher would normally need to manage training on a GPU – manually. And we haven't even started distributed training yet!
 
-With Determined, none of this manual device management is necessary. Simply using one of our high-level APIs gives you access to not only running on GPUs but running distributed training on multiple GPUs out-of-the-box. The only configuration needed (after porting your model to one of our APIs) would be to set the number of desired resources (GPUs) to use in your experiment settings, e.g.: 
+With Determined or HPE Machine Learning Development Environment, none of this manual device management is necessary. Simply using one of our high-level APIs gives you access to not only running on GPUs but running distributed training on multiple GPUs out-of-the-box. The only configuration needed (after porting your model to one of our APIs) would be to set the number of desired resources (GPUs) to use in your experiment settings, e.g.:
 
 ```python
 resources:
@@ -148,7 +148,7 @@ This approach is problematic for the following reasons: 
 Determined automatically checkpoints in the following situations: 
 
 * Periodically throughout the course of model training, to keep a record of the training progress. 
-* During training – so if a trial fails on epoch 9 and the last checkpoint was saved during epoch 1, Determined will save yet another checkpoint at epoch 9, making this a very efficient system. 
+* During training – If a trial fails on epoch 9 and the last checkpoint was saved during epoch 1, Determined will save yet another checkpoint at epoch 9, making this a very efficient system. 
 * Upon completion of the trial. 
 
 Additional checkpoint configuration settings can be modified to make this even more customizable. Checkpoints can be easily examined through the WebUI even after an experiment completes, and downloaded easily through the Determined APIs: 
@@ -161,7 +161,7 @@ Hyperparameter search refers to the process of searching for the optimal configu
 
 With Determined, configuring hyperparameter search is easy. Defining hyperparameters, either static or in ranges, is easy through experiment configuration: 
 
-```
+```yaml
 hyperparameters:
     global_batch_size: 128
     data_flag: pathmnist
@@ -184,7 +184,7 @@ Data scientists and researchers rarely work alone, especially in today’s data-
 
 At the enterprise level, HPE Machine Learning Development Environment automatically scales up and down workloads depending on priority and resource availability. For example, if a researcher is running a hefty training job and is utilizing all 10 GPUs on a shared cluster, but their colleague needs two of them for a higher priority smaller job, HPE Machine Learning Development Environment can temporarily scale back the larger job utilizing all 10 GPUs down to using only 8, leaving room for the smaller training job.  
 
-#### Model sharing and Reproducibility 
+#### Model Sharing and Reproducibility 
 
 The HPE Machine Learning Development Environment WebUI makes it easy to track experiments and see which model configurations resulted in particular results, across a team. This makes reproducibility easy, something that is of utmost importance when developing models for a use case like predicting cancer in biomedical images.  
 
@@ -221,11 +221,11 @@ det user whoami
 
 Refer to the Determined User Guide and the Reference Page for more information on how to interact with the cluster.  
 
-In steps 1.2 – 1.4, we’re going to describe how to port this model to HPE Machine Learning Development Environment step-by-step, (model_def.py). If you are interested in running the final training job, skip to step 1.5. 
+*In steps 1.2 – 1.4, we’re going to describe how to port this model to HPE Machine Learning Development Environment step-by-step, (model_def.py). If you are interested in running the final training job, skip to step 1.5.* 
 
 #### Step 1.2: Port Model Definition  
 
-To train your own custom model using one of Determined’s high level APIs, such as the PyTorch API, you need to port your code to the API first. We provide a template of all the functions Determined needs to run your training loop [here](https://docs.determined.ai/latest/training/apis-howto/api-pytorch-ug.html#pytorch-trial). Fill them out one by one to port your code. Once these functions are populated, Determined can use these along with the provided configuration file, to run your experiment. 
+To train your own custom model using one of Determined’s high level APIs, such as the PyTorch API, you need to port your code to the API first. We provide a template of all the functions Determined needs to run your training loop [here](https://docs.determined.ai/latest/training/apis-howto/api-pytorch-ug.html#pytorch-trial). Fill them out one-by-one to port your code. Once these functions are populated, Determined can use these along with the provided configuration file, to run your experiment. 
 
 To start, create a class definition that inherits from PyTorchTrial (this is the template referred to above). Create a context (line 29). This is like an interface to the Determined master, allowing you to communicate back and forth with it. Also include the model, optimizer, and criterion in the initialization function so that Determined is aware of them. Make each object an attribute of the class as shown below and transfer relevant hyperparameters to `config.yaml`. As shown here, we can obtain hyperparameters defined in this configuration file by calling `self.context.get_hparam()`, making it easier to change these hyperparameters without modifying training code.  
 
@@ -506,8 +506,8 @@ Deploying your model can make it a lot easier to use in production, and while th
 
 ### Conclusion  
 
-That’s it! We have shown how to implement and end-to-end machine learning workflow using HPE Machine Learning Development Environment and Flask. For more information about HPE’s AI toolkit please visit the [HPE AI Solutions homepage here.](https://www.hpe.com/us/en/solutions/artificial-intelligence.html)  
+That’s it! We have shown how to implement an end-to-end machine learning workflow using HPE Machine Learning Development Environment and Flask. For more information about HPE’s AI toolkit please visit the [HPE AI Solutions homepage here.](https://www.hpe.com/us/en/solutions/artificial-intelligence.html)  
 
-If you enjoyed reviewing this model training and deployment example, [we invite you to get in touch with the Determined Community](https://join.slack.com/t/determined-community/shared_invite/zt-1txc10qgy-yJ2puE6DxgrhdH9TIK93tw) and try this out for yourself by following the Determined Documentation.  
+If you enjoyed reviewing this model training and deployment example, [we invite you to get in touch with the Determined Community](https://join.slack.com/t/determined-community/shared_invite/zt-1txc10qgy-yJ2puE6DxgrhdH9TIK93tw) and try this out for yourself by following the Determined [Documentation](https://docs.determined.ai/latest/).  
 
 If you and your team are ready for premium machine learning support from HPE, please contact us at the [HPE Machine Learning Development Environment homepage](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html).
