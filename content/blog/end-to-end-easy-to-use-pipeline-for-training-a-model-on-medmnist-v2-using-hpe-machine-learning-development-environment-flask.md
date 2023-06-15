@@ -17,9 +17,7 @@ In this blog post, we’ll be covering how [HPE Machine Learning Development Env
 
 Cancer is a horrible disease, and hospitals and research labs are increasingly using AI technology, such as convolutional neural networks (CNNs) to assist in image-based diagnosis. [MedMNIST](https://medmnist.com/) is a meta-dataset which contains 12 2-D datasets and 6 3-D computer vision datasets for various biomedical image classification problems. One of these datasets is PathMNIST, a colon cancer classification dataset. PathMNIST is derived from a prior study, and contains images of colorectal cancer histology slides, some of which contain cancer-associated stroma. Researchers can train a model on this dataset (for example, a CNN model) to help them identify cancer-associated-stroma in future patients.  
 
-![A picture containing text, screenshot, font, lilac
-
-(Source: medmnist.com) 
+![](/img/pathmedmnist.jpg)
 
 The goal of training a model on this dataset is to accurately classify images into their respective categories, for example, this image of adipose tissue: 
 
@@ -85,8 +83,6 @@ logs = ['loss', 'auc', 'acc']
 With Determined, no manual metric tracking or logging is necessary. When porting your model to one of our high-level APIs, the default training and testing metrics, such as model losses, are automatically configured and rendered natively in the WebUI: 
 
 ![](/img/screenshot1.png)
-
-
 
 #### Distributed Training 
 
@@ -158,8 +154,6 @@ Determined automatically checkpoints in the following situations: 
 Additional checkpoint configuration settings can be modified to make this even more customizable. Checkpoints can be easily examined through the WebUI even after an experiment completes, and downloaded easily through the Determined APIs: 
 
 ![](/img/screenshot3.png)
-
-
 
 #### Hyperparameter search 
 
@@ -379,7 +373,7 @@ In HPE Machine Learning Development Environment, an experiment is a training job
 
 To begin training our PathMNIST model, you need to submit an experiment to HPE Machine Learning Development Environment. After setting up Determined, use the CLI to submit an experiment (refer to full setup instructions in the [repository](https://github.com/ighodgao/determined_medmnist_e2e)): 
 
-`det e create config.yaml .  ` 
+`det e create config.yaml .` 
 
 View progress on the WebUI located at <DET_MASTER>:8080, which you can reach by pasting this address into a browser window. 
 
@@ -506,7 +500,7 @@ For example, running prediction on the following image of adipose tissue results
 
 ![](data:image/png;base64,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)
 
-`  "prediction": "adipose" `
+`"prediction": "adipose"`
 
 Deploying your model can make it a lot easier to use in production, and while this example uses Flask as a simple proof-of-concept, tools like KServe can help deploy your models in production. 
 
