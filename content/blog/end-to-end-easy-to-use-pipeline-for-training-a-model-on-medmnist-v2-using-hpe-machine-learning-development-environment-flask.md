@@ -26,7 +26,7 @@ The goal of training a model on this dataset is to accurately classify images in
 
 ![](/img/adipose.jpeg)
 
- "prediction": "adipose" 
+` "prediction": "adipose" `
 
 ### HPE Machine Learning Development Environment 
 
