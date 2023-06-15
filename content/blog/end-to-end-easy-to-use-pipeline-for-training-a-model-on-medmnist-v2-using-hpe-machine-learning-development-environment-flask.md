@@ -113,10 +113,10 @@ And the model is ported to the GPU in line 90: 
 As well as the inputs to the model, for example, in line 190: 
 
 ```
-        outputs = model(inputs.to(device))
+    outputs = model(inputs.to(device))
 ```
 
-The variable “device” is referenced a total of 27 times in the training script, for purposes like porting other inputs to the GPU, and passing the device variable around to different functions so they are aware of the GPU. This is a perfect example of how a researcher would normally need to manage training on a GPU – manually. And we didn’t even get to distributed training yet! 
+The variable “device” is referenced a total of 27 times in the training script, for purposes like porting other inputs to the GPU, and passing the device variable around to different functions so they are aware of the GPU. This is a perfect example of how a researcher would normally need to manage training on a GPU – manually. And we haven't even started distributed training yet!
 
 With Determined, none of this manual device management is necessary. Simply using one of our high-level APIs gives you access to not only running on GPUs but running distributed training on multiple GPUs out-of-the-box. The only configuration needed (after porting your model to one of our APIs) would be to set the number of desired resources (GPUs) to use in your experiment settings, e.g.: 
 
@@ -344,7 +344,7 @@ Notice that in all functions we’ve defined as part of MyMEDMnistTrial, we have
 
 After porting the model, compare the original training script and our newly defined model_def.py training file. At 302 vs. 177 lines of code, we have cut our training script nearly in half! 
 
-#### Optional: Upload dataset to S3 bucket  
+#### *Optional*: Upload dataset to S3 bucket  
 
 The PathMNIST dataset includes images that are preprocessed to 28x28 images with corresponding classification labels, complete with data augmentation. The original training script downloads this dataset and performs data normalization prior to model training.  
 
