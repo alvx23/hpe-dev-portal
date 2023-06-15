@@ -38,7 +38,6 @@ At its core, HPE Machine Learning Development Environment is a training platform
 
 Researchers currently write training scripts that include not only the core ML functionalities to train a model on a dataset, but also code to manage the underlying infrastructure such as training on multiple GPUs, running a hyperparameter search, visualizing the training progress, and saving model checkpoints. Researchers should not have to focus on infrastructure problems – taking away these software engineering and systems administration-related tasks can allow researchers to focus on what’s important: building great models.  
 
-\
 Additionally, collaboration is an important part of ML development. Many research teams don’t have the appropriate resources to share experiment results or share GPU infrastructure, resulting in a lack of reproducibility and ad-hoc resource management. This frustration due to a lack of high-quality resources causes slow progress and is a common reason why ML projects fail.  
 
 In this blog post, we’ll see firsthand how HPE Machine Learning Development Environment can remove infrastructure code in a real-world research script and, at the same time, provide out-of-the-box distributed training, checkpointing, hyperparameter search, and visualization functionality, drastically accelerating research teams’ capabilities. We’ll also touch on the features that allow teams to collaborate effectively. 
@@ -61,7 +60,6 @@ Using this library, a writer object is created for handling visualization data:�
 writer = SummaryWriter(log_dir=os.path.join(output_root, 'Tensorboard_Results'))
 ```
 
-  \
 The writer object is referenced a total of 9 times throughout the script.  
 
 In addition, training and testing metrics are manually calculated and logged in various places throughout the script, e.g.:  
