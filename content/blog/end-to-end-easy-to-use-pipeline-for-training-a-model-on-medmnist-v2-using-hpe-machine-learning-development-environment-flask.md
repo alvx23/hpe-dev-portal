@@ -1,6 +1,6 @@
 ---
-title: "End-to-end, easy-to-use pipeline for training a model on MedMNIST v2
-  using HPE Machine Learning Development Environment & Flask "
+title: End-to-end, easy-to-use pipeline for training a Computer Vision Model on
+  Medical Image Data using HPE Machine Learning Development Environment
 date: 2023-06-15T17:00:42.474Z
 priority: 2
 author: Isha Ghodgaonkar
