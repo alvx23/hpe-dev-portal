@@ -207,7 +207,6 @@ Once your admin has provisioned a cluster with HPE Machine Learning Development 
 export DET_MASTER=<your cluster address>
 ```
 
-\
 Then log in as your user: 
 
 ```yaml
