@@ -35,7 +35,7 @@ On its own, [HPE Machine Learning Development Environment](https://www.hpe.com/u
 
 #### Why use HPE Machine Learning Development Environment? 
 
-At its core, HPE Machine Learning Development Environment is a training platform that reduces complexity for ML researchers and helps research teams collaborate.  
+At its core, Determined and HPE Machine Learning Development Environment iare training platforms that reduce complexity for ML researchers and help research teams collaborate. 
 
 Researchers currently write training scripts that include not only the core ML functionalities to train a model on a dataset, but also code to manage the underlying infrastructure such as training on multiple GPUs, running a hyperparameter search, visualizing the training progress, and saving model checkpoints. Researchers should not have to focus on infrastructure problems – taking away these software engineering and systems administration-related tasks can allow researchers to focus on what’s important: building great models.  
 
