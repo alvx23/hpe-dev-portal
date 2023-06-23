@@ -15,9 +15,9 @@ tags:
 ---
 In this blog post, we’ll be covering how [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) can add value to your machine learning workflow, as well as how to utilize HPE Machine Learning Development Environment and Flask together to train and serve a model on a medical domain-specific use case. An end-to-end workflow and step-by-step instructions are provided in the Appendix. If you want to jump right in, the [repository](https://github.com/ighodgao/determined_medmnist_e2e) contains all code referenced in this post as well as instructions to run. 
 
-## Introduction 
+# Introduction 
 
-### MedMNIST 
+## MedMNIST 
 
 Cancer is a horrible disease, and hospitals and research labs are increasingly using AI technology, such as convolutional neural networks (CNNs) to assist in image-based diagnosis. [MedMNIST](https://medmnist.com/) is a meta-dataset which contains 12 2-D datasets and 6 3-D computer vision datasets for various biomedical image classification problems. One of these datasets is PathMNIST, a colon cancer classification dataset. PathMNIST is derived from a prior study, and contains images of colorectal cancer histology slides, some of which contain cancer-associated stroma. Researchers can train a model on this dataset (for example, a CNN model) to help them identify cancer-associated-stroma in future patients.  
 
@@ -29,11 +29,11 @@ The goal of training a model on this dataset is to accurately classify images in
 
 `"prediction": "adipose"`
 
-### HPE Machine Learning Development Environment 
+## HPE Machine Learning Development Environment 
 
 On its own, [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) helps developers and scientists focus on innovation by removing the complexity and cost associated with at-scale machine learning model training. Today we’re going to explore the advantages of building an end-to-end ML workflow using HPE Machine Learning Development Environment – occasionally referring to HPE’s open source platform, [Determined](http://determined.ai/) - for model training. We also provide an example end-to-end solution using Flask for model deployment, as well as the steps taken to develop this example in the Appendix. 
 
-#### Why use HPE Machine Learning Development Environment? 
+### Why use HPE Machine Learning Development Environment? 
 
 At its core, Determined and HPE Machine Learning Development Environment iare training platforms that reduce complexity for ML researchers and help research teams collaborate. 
 
@@ -45,7 +45,7 @@ In this blog post, we’ll see firsthand how HPE Machine Learning Development En
 
 If you are interested in more details about how this example was developed, take a look at the Appendix. For a full, in-depth, model porting guide, check out this [model porting guide.](https://docs.determined.ai/latest/tutorials/pytorch-porting-tutorial.html) The code for this example and instructions to run can be found in the [repository](https://github.com/ighodgao/determined_medmnist_e2e). 
 
-#### Experiment Visualization and Metric Logging 
+### Experiment visualization and metric logging 
 
 Visualization tools are important when developing models due to the probabilistic nature of machine learning. Debugging a model often involves analyzing a model’s training journey by visualizing metrics at different timestamps during an experiment. Commonly used tools for visualization often require manual configuration. Let’s take a look at how the [original training script](https://github.com/MedMNIST/experiments/blob/main/MedMNIST2D/train_and_eval_pytorch.py) handles visualization:  
 
@@ -86,7 +86,7 @@ With Determined, no manual metric tracking or logging is necessary. When porting
 
 ![](/img/screenshot1.png)
 
-#### Distributed Training 
+### Distributed training 
 
 Distributed training refers to the process of distributing a model training workload across multiple devices, such as GPUs. It’s very common for machine learning workloads to run for weeks on end due to large model and dataset sizes, so distributing training can drastically speed up the time it takes to develop a machine learning model.  
 
@@ -131,7 +131,7 @@ After taking these steps, you’d be able to watch your experiment progress in t
 
 ![](/img/screenshot2.png)
 
-#### Automatic Checkpointing 
+### Automatic Checkpointing 
 
 Checkpointing a model throughout an experiment is important to maintain training progress and for preserving the best model at the end of an experiment. Let’s take a look at how the original training script handles model checkpointing: 
 
@@ -157,11 +157,11 @@ Additional checkpoint configuration settings can be modified to make this even m
 
 ![](/img/screenshot3.png)
 
-#### Hyperparameter search 
+### Hyperparameter search 
 
 Hyperparameter search refers to the process of searching for the optimal configuration settings for your machine learning model – for example, searching for the optimal learning rate or convolution sizes in a convolutional neural network. The original training script does not implement hyperparameter search. This is not surprising, as hyperparameter search is yet another heavy lift for a researcher who wants to focus on experimentation, not the grunt work of setting up hyperparameter search.  
 
-With Determined, configuring hyperparameter search is easy. Defining hyperparameters, either static or in ranges, is easy through experiment configuration: 
+With Determined or HPE Machine Learning Development Environment, configuring hyperparameter search is easy. Defining hyperparameters, either static or in ranges, is easy through experiment configuration: 
 
 ```yaml
 hyperparameters:
@@ -178,21 +178,21 @@ hyperparameters:
 
 In this case, the “hyperparameters” feature can also be used to switch between datasets and types of training tasks if configured appropriately in the training script – which is neat! 
 
-#### Collaboration 
+### Collaboration 
 
 Data scientists and researchers rarely work alone, especially in today’s data-driven technological boom. Sharing experiment results across a large team and sharing a single GPU cluster is not traditionally straightforward, but HPE Machine Learning Development Environment makes for a much better experience: 
 
-#### Resource Management 
+### Resource Management 
 
 At the enterprise level, HPE Machine Learning Development Environment automatically scales up and down workloads depending on priority and resource availability. For example, if a researcher is running a hefty training job and is utilizing all 10 GPUs on a shared cluster, but their colleague needs two of them for a higher priority smaller job, HPE Machine Learning Development Environment can temporarily scale back the larger job utilizing all 10 GPUs down to using only 8, leaving room for the smaller training job.  
 
-#### Model Sharing and Reproducibility 
+### Model sharing and reproducibility 
 
 The HPE Machine Learning Development Environment WebUI makes it easy to track experiments and see which model configurations resulted in particular results, across a team. This makes reproducibility easy, something that is of utmost importance when developing models for a use case like predicting cancer in biomedical images.  
 
-### Appendix: Building an E2E solution 
+# Appendix: Building an E2E solution 
 
-#### Step 1: Model Training 
+## Step 1: Model Training 
 
 To get started, we’ll take a look at the original training script provided [here](https://github.com/MedMNIST/experiments/blob/main/MedMNIST2D/train_and_eval_pytorch.py). 
 
@@ -200,7 +200,7 @@ This script contains all the functionality needed to download the dataset as wel
 
 The original script has some boilerplate code that can be removed since HPE Machine Learning Development Environment handles functionality such as distributed training and experiment visualization. For a full guide to model porting, refer to the [model porting guide](https://hpe-mlde.determined.ai/latest/tutorials/pytorch-porting-tutorial.html#pytorch-porting-tutorial). Here, we’ll walk through the steps taken to port the code to HPE Machine Learning Development Environment using the PyTorch API. The PyTorch API is a high-level API which allows you to utilize the full functionality of HPE Machine Learning Development Environment out-of-the-box. 
 
-#### Step 1.1: Connect to HPE Machine Learning Development Environment  
+## Step 1.1: Connect to HPE Machine Learning Development Environment  
 
 Once your admin has provisioned a cluster with HPE Machine Learning Development Environment and configured you as a user, connect to HPE Machine Learning Development Environment by exporting the DET_MASTER variable: 
 
@@ -224,7 +224,7 @@ Refer to the Determined User Guide and the Reference Page for more information o
 
 *In steps 1.2 – 1.4, we’re going to describe how to port this model to HPE Machine Learning Development Environment step-by-step, (model_def.py). If you are interested in running the final training job, skip to step 1.5.* 
 
-#### Step 1.2: Port Model Definition  
+## Step 1.2: Port model definition  
 
 To train your own custom model using one of Determined’s high level APIs, such as the PyTorch API, you need to port your code to the API first. We provide a template of all the functions Determined needs to run your training loop [here](https://docs.determined.ai/latest/training/apis-howto/api-pytorch-ug.html#pytorch-trial). Fill them out one-by-one to port your code. Once these functions are populated, Determined can use these along with the provided configuration file, to run your experiment. 
 
@@ -260,7 +260,7 @@ class MyMEDMnistTrial(PyTorchTrial):
             self.criterion = nn.CrossEntropyLoss()
 ```
 
-#### Step 1.3 Port Data Loaders  
+## Step 1.3 Port data loaders  
 
 Next, we’ll port the training and evaluation data loaders to the following class functions as follows. This is the code that trains one batch of data. You no longer need the standard for loop to iterate over batches or epochs inside these functions, since Determined will handle the training loop for you. 
 
@@ -299,7 +299,7 @@ Next, we’ll port the training and evaluation data loaders to the following cla
 
 In each function, we initialize and return the relevant PyTorch DataLoader object (e.g. `val_loader from build_validation_data_loader`, and `train_loader in build_training_data_loader`).  
 
-#### Step 1.4 Port Training and Evaluation Functions 
+## Step 1.4 Port training and evaluation functions 
 
 Finally, we’ll port our training and evaluation functions to the following class functions by including the relevant steps to train and evaluate our model on one batch of data. Here, make sure to remove the for-loop iterating over epochs and include only the relevant code corresponding to one data batch. HPE Machine Learning Development Environment handles the training loop behind the scenes.  
 
@@ -345,7 +345,7 @@ Notice that in all functions we’ve defined as part of MyMEDMnistTrial, we have
 
 After porting the model, compare the original training script and our newly defined model_def.py training file. At 302 vs. 177 lines of code, we have cut our training script nearly in half! 
 
-#### *Optional*: Upload dataset to S3 bucket  
+### *Optional*: Upload dataset to S3 bucket  
 
 The PathMNIST dataset includes images that are preprocessed to 28x28 images with corresponding classification labels, complete with data augmentation. The original training script downloads this dataset and performs data normalization prior to model training.  
 
@@ -368,7 +368,7 @@ wget.download(
 )
 ```
 
-#### Step 1.5 Train the Model 
+## Step 1.5 Train the model 
 
 In HPE Machine Learning Development Environment, an experiment is a training job that consists of one or more variations, or trials, on the same model 
 
@@ -382,7 +382,7 @@ You can configure additional training parameters by modifying config.yaml. Refer
 
 And that’s it! Now that we have our trained PathMNIST model, we can progress to deployment in Step 2.  
 
-#### Step 2: Model Deployment 
+## Step 2: Model deployment 
 
 Once you have finished training with HPE Machine Learning Development Environment, you can deploy your model using any solution.  
 
@@ -390,7 +390,7 @@ In Step 2, we’ll show an example of using Flask to deploy your model as a REST
 
 Steps 2.1-2.4 describe the steps needed to create a Flask server (deploy.py). If you are interested in deploying the model directly, skip to steps 2.5-2.6. 
 
-#### Step 2.1: Load the model from your saved checkpoints in your experiment 
+## Step 2.1: Load the model from your saved checkpoints in your experiment 
 
 ```python
 # Load the Determined model
@@ -403,7 +403,7 @@ model.eval()
 
 Now that we have our trained model, we need to properly load the model, which we can do by referencing checkpoints from our experiment.  
 
-#### Step 2.2: Define a function to preprocess your data 
+## Step 2.2: Define a function to preprocess your data 
 
 ```python
 def preprocess_data(image):
@@ -434,7 +434,7 @@ def preprocess_data(image):
 
 Here, we perform the same normalizations done when training the model on the training dataset.  
 
-#### Step 2.3: Define a Flask server  
+## Step 2.3: Define a Flask server  
 
 ```python
 # Define a Flask route for serving predictions
@@ -479,9 +479,9 @@ def predict():
     return jsonify({"prediction": class_labels[class_label]})
 ```
 
-Here we define a server that accepts an image file, performs the preprocessing steps defined in the preprocess_data function, and outputs the prediction as a json object.  
+Here we define a server that accepts an image file, performs the preprocessing steps defined in the `preprocess_data` function, and outputs the prediction as a json object.  
 
-#### Step 2.4: Define a function to start the Flask server: 
+## Step 2.4: Define a function to start the Flask server: 
 
 ```python
 # Start the Flask server
@@ -491,7 +491,7 @@ if __name__ == "__main__":
 
 In this example the server is deployed on localhost on port 5000. 
 
-#### Step 2.5: Obtain test data
+## Step 2.5: Obtain test data
 
 Your test data should be in the form of .jpeg, .png, or .jpg images, deploy the Flask server, and submit requests for inference 
 
@@ -505,7 +505,7 @@ For example, running prediction on the following image of adipose tissue results
 
 Deploying your model can make it a lot easier to use in production, and while this example uses Flask as a simple proof-of-concept, tools like KServe can help deploy your models in production. 
 
-### Conclusion  
+# Conclusion  
 
 That’s it! We have shown how to implement an end-to-end machine learning workflow using HPE Machine Learning Development Environment and Flask. For more information about HPE’s AI toolkit please visit the [HPE AI Solutions homepage here.](https://www.hpe.com/us/en/solutions/artificial-intelligence.html)  
 
