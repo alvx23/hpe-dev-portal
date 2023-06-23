@@ -19,7 +19,7 @@ In this blog post, we’ll be covering how [HPE Machine Learning Development Env
 
 ## MedMNIST 
 
-Cancer is a horrible disease, and hospitals and research labs are increasingly using AI technology, such as convolutional neural networks (CNNs) to assist in image-based diagnosis. [MedMNIST](https://medmnist.com/) is a meta-dataset which contains 12 2-D datasets and 6 3-D computer vision datasets for various biomedical image classification problems. One of these datasets is PathMNIST, a colon cancer classification dataset. PathMNIST is derived from a prior study, and contains images of colorectal cancer histology slides, some of which contain cancer-associated stroma. Researchers can train a model on this dataset (for example, a CNN model) to help them identify cancer-associated-stroma in future patients.  
+Cancer is a horrible disease, and hospitals and research labs are increasingly using AI technology, such as convolutional neural networks (CNNs), to assist in image-based diagnoses. [MedMNIST](https://medmnist.com/) is a meta-dataset which contains 12 2-D datasets and 6 3-D computer vision datasets for various biomedical image classification problems. One of these datasets is PathMNIST, a colon cancer classification dataset. PathMNIST is derived from a prior study, and contains images of colorectal cancer histology slides, some of which contain cancer-associated stroma. Researchers can train a model on this dataset (for example, a CNN model) to help them identify cancer-associated-stroma in future patients.  
 
 ![](/img/pathmedmnist.jpg)
 
@@ -31,11 +31,11 @@ The goal of training a model on this dataset is to accurately classify images in
 
 ## HPE Machine Learning Development Environment 
 
-On its own, [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) helps developers and scientists focus on innovation by removing the complexity and cost associated with at-scale machine learning model training. Today we’re going to explore the advantages of building an end-to-end ML workflow using HPE Machine Learning Development Environment – occasionally referring to HPE’s open source platform, [Determined](http://determined.ai/) - for model training. We also provide an example end-to-end solution using Flask for model deployment, as well as the steps taken to develop this example in the Appendix. 
+On its own, [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) helps developers and scientists focus on innovation by removing the complexity and cost associated with at-scale machine learning model training. In this post we’re going to explore the advantages of building an end-to-end ML workflow using HPE Machine Learning Development Environment – occasionally referring to HPE’s open source platform, [Determined](http://determined.ai/) - for model training. We also provide an example end-to-end solution using Flask for model deployment, as well as the steps taken to develop this example in the Appendix. 
 
 ### Why use HPE Machine Learning Development Environment? 
 
-At its core, Determined and HPE Machine Learning Development Environment iare training platforms that reduce complexity for ML researchers and help research teams collaborate. 
+At its core, Determined and HPE Machine Learning Development Environment are training platforms that reduce complexity for ML researchers and help research teams collaborate. 
 
 Researchers currently write training scripts that include not only the core ML functionalities to train a model on a dataset, but also code to manage the underlying infrastructure such as training on multiple GPUs, running a hyperparameter search, visualizing the training progress, and saving model checkpoints. Researchers should not have to focus on infrastructure problems – taking away these software engineering and systems administration-related tasks can allow researchers to focus on what’s important: building great models.  
 
@@ -43,7 +43,7 @@ Additionally, collaboration is an important part of ML development. Many researc
 
 In this blog post, we’ll see firsthand how HPE Machine Learning Development Environment can remove infrastructure code in a real-world research script and, at the same time, provide out-of-the-box distributed training, checkpointing, hyperparameter search, and visualization functionality, drastically accelerating research teams’ capabilities. We’ll also touch on the features that allow teams to collaborate effectively. 
 
-If you are interested in more details about how this example was developed, take a look at the Appendix. For a full, in-depth, model porting guide, check out this [model porting guide.](https://docs.determined.ai/latest/tutorials/pytorch-porting-tutorial.html) The code for this example and instructions to run can be found in the [repository](https://github.com/ighodgao/determined_medmnist_e2e). 
+If you are interested in more details about how this example was developed, take a look at the Appendix. For a full, in-depth, model porting guide, check out this [model porting guide.](https://docs.determined.ai/latest/tutorials/pytorch-porting-tutorial.html) This [repository](https://github.com/ighodgao/determined_medmnist_e2e)contains all the code referenced in this post, as well as instructions on how to run it. 
 
 ### Experiment visualization and metric logging 
 
