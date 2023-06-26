@@ -45,6 +45,8 @@ In this blog post, we’ll see firsthand how HPE Machine Learning Development En
 
 If you are interested in more details about how this example was developed, take a look at the Appendix. For a full, in-depth, model porting guide, check out this [model porting guide.](https://docs.determined.ai/latest/tutorials/pytorch-porting-tutorial.html) This [repository](https://github.com/ighodgao/determined_medmnist_e2e)contains all the code referenced in this post, as well as instructions on how to run it. 
 
+L﻿et's take a closer look at the core features of HPE Machine Learning Development Environment!
+
 ### Experiment visualization and metric logging 
 
 Visualization tools are important when developing models due to the probabilistic nature of machine learning. Debugging a model often involves analyzing a model’s training journey by visualizing metrics at different timestamps during an experiment. Commonly used tools for visualization often require manual configuration. Let’s take a look at how the [original training script](https://github.com/MedMNIST/experiments/blob/main/MedMNIST2D/train_and_eval_pytorch.py) handles visualization:  
