@@ -392,7 +392,7 @@ Once you have finished training with HPE Machine Learning Development Environmen
 
 In Step 2, you'll see an example of using Flask to deploy your model as a RESTful API. 
 
-Steps 2.1-2.4 describe the steps needed to create a Flask server (deploy.py). If you are interested in deploying the model directly, skip to steps 2.5-2.6. 
+*Steps 2.1-2.4 describe the steps needed to create a Flask server (deploy.py). If you are interested in deploying the model directly, skip to steps 2.5-2.6.* 
 
 ## Step 2.1: Load the model from your saved checkpoints in your experiment 
 
@@ -405,7 +405,7 @@ model = trial.model
 model.eval()
 ```
 
-Now that we have our trained model, we need to properly load the model, which we can do by referencing checkpoints from our experiment.  
+Now that you have a trained model, to properly load the model, reference checkpoints from the experiment.
 
 ## Step 2.2: Define a function to preprocess your data 
 
@@ -436,9 +436,7 @@ def preprocess_data(image):
     return processed_data
 ```
 
-Here, we perform the same normalizations done when training the model on the training dataset.  
-
-## Step 2.3: Define a Flask server  
+Here, perform the same normalizations done when training the model on the training dataset.Step 2.3: Define a Flask server.
 
 ```python
 # Define a Flask route for serving predictions
