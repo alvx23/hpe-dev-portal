@@ -94,7 +94,7 @@ Distributed training refers to the process of distributing a model training work
 
 However, this is difficult to set up and difficult to manage: manual interaction with GPUs through code is often necessary when setting up distributed training, and, once set up, managing distributed training is cumbersome due to issues like fault tolerance. Fault tolerance refers to the ability of a system to gracefully handle and continue a training job even if something on the infrastructure level goes wrong, such as a device failing. Setting up a fault tolerant solution manually is an enormous lift on an ML team, and not normally within the scope of a researcher’s abilities.  
 
-Determined not only takes away the need to automatically interface with individual GPUs, but is also fault-tolerant. Let’s take a look at how the [original training script](https://github.com/MedMNIST/experiments/blob/main/MedMNIST2D/train_and_eval_pytorch.py) handles running the model on GPUs: 
+Determined not only takes away the need to automatically interface with individual GPUs, but is also fault-tolerant. Let’s take a look at how the [original training script](https://github.com/MedMNIST/experiments/blob/main/MedMNIST2D/train_and_eval_pytorch.py) handles running the model on GPUs.
 
 In line 291, the `gpu_ids` are received from input arguments from the user: 
 
@@ -135,7 +135,7 @@ After taking these steps, you’d be able to watch your experiment progress in t
 
 ### Automatic Checkpointing 
 
-Checkpointing a model throughout an experiment is important to maintain training progress and for preserving the best model at the end of an experiment. Let’s take a look at how the original training script handles model checkpointing: 
+Checkpointing a model throughout an experiment is important to maintain training progress and for preserving the best model at the end of an experiment. Let’s take a look at how the original training script handles model checkpointing.
 
 The original training script saves the last model at the very end of the training process, in a location specified by the user, but does not checkpoint throughout the training job: 
 
@@ -161,7 +161,7 @@ Additional checkpoint configuration settings can be modified to make this even m
 
 ### Hyperparameter search 
 
-Hyperparameter search refers to the process of searching for the optimal configuration settings for your machine learning model – for example, searching for the optimal learning rate or convolution sizes in a convolutional neural network. The original training script does not implement hyperparameter search. This is not surprising, as hyperparameter search is yet another heavy lift for a researcher who wants to focus on experimentation, not the grunt work of setting up hyperparameter search.  
+Hyperparameter search refers to the process of searching for the optimal configuration settings for your machine learning model – for example, searching for the optimal learning rate or convolution sizes in a convolutional neural network. The original training script does not implement hyperparameter search. This is not surprising, as hyperparameter search is yet another heavy lift for a researcher who wants to focus on experimentation, not the grunt work of setting up a hyperparameter search.  
 
 With Determined or HPE Machine Learning Development Environment, configuring hyperparameter search is easy. Defining hyperparameters, either static or in ranges, is easy through experiment configuration: 
 
@@ -180,7 +180,7 @@ hyperparameters:
 
 In this case, the “hyperparameters” feature can also be used to switch between datasets and types of training tasks if configured appropriately in the training script – which is neat! 
 
-### Collaboration 
+## Collaboration 
 
 Data scientists and researchers rarely work alone, especially in today’s data-driven technological boom. Sharing experiment results across a large team and sharing a single GPU cluster is not traditionally straightforward, but HPE Machine Learning Development Environment makes for a much better experience: 
 
