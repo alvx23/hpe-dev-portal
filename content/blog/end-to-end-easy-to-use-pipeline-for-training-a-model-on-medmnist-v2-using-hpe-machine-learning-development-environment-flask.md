@@ -90,7 +90,7 @@ With Determined, no manual metric tracking or logging is necessary. When porting
 
 ### Distributed training 
 
-Distributed training refers to the process of distributing a model training workload across multiple devices, such as GPUs. It’s very common for machine learning workloads to run for weeks on end due to large model and dataset sizes, so distributing training can drastically speed up the time it takes to develop a machine learning model.  
+Distributed training refers to the process of distributing a model training workload across multiple devices, such as GPUs. It’s very common for machine learning workloads to run for weeks on end due to large model and dataset sizes, so distributing mode training across GPUs can drastically speed up the time it takes to develop a machine learning model.  
 
 However, this is difficult to set up and difficult to manage: manual interaction with GPUs through code is often necessary when setting up distributed training, and, once set up, managing distributed training is cumbersome due to issues like fault tolerance. Fault tolerance refers to the ability of a system to gracefully handle and continue a training job even if something on the infrastructure level goes wrong, such as a device failing. Setting up a fault tolerant solution manually is an enormous lift on an ML team, and not normally within the scope of a researcher’s abilities.  
 
