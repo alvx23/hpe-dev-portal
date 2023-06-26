@@ -345,9 +345,9 @@ Finally, port your training and evaluation functions to the following class func
         return {"test_loss": loss}
 ```
 
-Notice that in all functions we’ve defined as part of MyMEDMnistTrial, we have removed all instances of manual device management, metric logging, and accuracy calculations. HPE Machine Learning Development Environment’s Trial APIs handle these automatically, given only the Trial definition and configuration file.  
+Notice that in all functions defined as part of MyMEDMnistTrial, all instances of manual device management, metric logging, and accuracy calculations have been removed. HPE Machine Learning Development Environment’s Trial APIs handle these automatically, given only the Trial definition and configuration file.  
 
-After porting the model, compare the original training script and our newly defined model_def.py training file. At 302 vs. 177 lines of code, we have cut our training script nearly in half! 
+After porting the model, compare the original training script and our newly defined model_def.py training file. At 302 vs. 177 lines of code, we have cut the training script nearly in half! 
 
 ### *Optional*: Upload dataset to S3 bucket  
 
@@ -384,13 +384,13 @@ View progress on the WebUI located at <DET_MASTER>:8080, which you can reach by 
 
 You can configure additional training parameters by modifying config.yaml. Refer to the [Experiment Configuration Reference](https://docs.determined.ai/latest/reference/reference-training/experiment-config-reference.html#experiment-configuration-reference) for more information. 
 
-And that’s it! Now that we have our trained PathMNIST model, we can progress to deployment in Step 2.  
+And that’s it! Now that you have a trained PathMNIST model, progress to deployment, found in Step 2.  
 
 ## Step 2: Model deployment 
 
 Once you have finished training with HPE Machine Learning Development Environment, you can deploy your model using any solution.  
 
-In Step 2, we’ll show an example of using Flask to deploy your model as a RESTful API.  
+In Step 2, you'll see an example of using Flask to deploy your model as a RESTful API. 
 
 Steps 2.1-2.4 describe the steps needed to create a Flask server (deploy.py). If you are interested in deploying the model directly, skip to steps 2.5-2.6. 
 
