@@ -13,7 +13,7 @@ tags:
   - determined-ai
   - machine-learning
 ---
-In this blog post, we’ll be covering how [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) can add value to your machine learning workflow, as well as how to utilize HPE Machine Learning Development Environment and Flask together to train and serve a model on a medical domain-specific use case. An end-to-end workflow and step-by-step instructions are provided in the Appendix. If you want to jump right in, the [repository](https://github.com/ighodgao/determined_medmnist_e2e) contains all code referenced in this post as well as instructions to run. 
+In this blog post, we’ll be covering how [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) can add value to your machine learning workflow, as well as how to utilize HPE Machine Learning Development Environment and Flask together to train and serve a model on a medical domain-specific use case. An end-to-end workflow and step-by-step instructions are provided in the "Practice" section. If you want to jump right in, the [repository](https://github.com/ighodgao/determined_medmnist_e2e) contains all code referenced in this post as well as instructions to run. 
 
 # Introduction 
 
@@ -31,7 +31,7 @@ The goal of training a model on this dataset is to accurately classify images in
 
 ## HPE Machine Learning Development Environment 
 
-On its own, [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) helps developers and scientists focus on innovation by removing the complexity and cost associated with at-scale machine learning model training. In this post we’re going to explore the advantages of building an end-to-end ML workflow using HPE Machine Learning Development Environment – occasionally referring to HPE’s open source platform, [Determined](http://determined.ai/) - for model training. We also provide an example end-to-end solution using Flask for model deployment, as well as the steps taken to develop this example in the Appendix. 
+On its own, [HPE Machine Learning Development Environment](https://www.hpe.com/us/en/solutions/artificial-intelligence/machine-learning-development-environment.html) helps developers and scientists focus on innovation by removing the complexity and cost associated with at-scale machine learning model training. In this post we’re going to explore the advantages of building an end-to-end ML workflow using HPE Machine Learning Development Environment – occasionally referring to HPE’s open source platform, [Determined](http://determined.ai/) - for model training. We also provide an example end-to-end solution using Flask for model deployment, as well as the steps taken to develop this example in the "Practice" section. 
 
 ### Why use HPE Machine Learning Development Environment? 
 
@@ -43,7 +43,7 @@ Additionally, collaboration is an important part of ML development. Many researc
 
 In this blog post, you'll get to see firsthand how HPE Machine Learning Development Environment can remove infrastructure code in a real-world research script and, at the same time, provide out-of-the-box distributed training, checkpointing, hyperparameter search, and visualization functionality, drastically accelerating research teams’ capabilities. You'll also learn about features that allow teams to collaborate effectively.. 
 
-If you are interested in more details about how this example was developed, take a look at the Appendix. For a full, in-depth, model porting guide, check out this [model porting guide.](https://docs.determined.ai/latest/tutorials/pytorch-porting-tutorial.html) The code for this example and the instructions used to run it can be found in the[repository](https://github.com/ighodgao/determined_medmnist_e2e).
+If you are interested in more details about how this example was developed, take a look at the "Practice" section. For a full, in-depth, model porting guide, check out this [model porting guide.](https://docs.determined.ai/latest/tutorials/pytorch-porting-tutorial.html) The code for this example and the instructions used to run it can be found in the[repository](https://github.com/ighodgao/determined_medmnist_e2e).
 
 L﻿et's take a closer look at the core features of HPE Machine Learning Development Environment!
 
@@ -192,7 +192,9 @@ At the enterprise level, HPE Machine Learning Development Environment automatica
 
 The HPE Machine Learning Development Environment WebUI makes it easy to track experiments and see which model configurations resulted in particular results, across a team. This makes reproducibility easy, something that is of utmost importance when developing models for a use case like predicting cancer in biomedical images.  
 
-# Appendix: Building an E2E solution 
+Now that you have a good background on the HPE Machine Learning Development Environment, l'll show you how you can build an E2E solution for your model training.
+
+# Practice: Building an E2E solution 
 
 ## Step 1: Model Training 
 
