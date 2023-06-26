@@ -41,7 +41,7 @@ Researchers currently write training scripts that include not only the core ML f
 
 Additionally, collaboration is an important part of ML development. Many research teams don’t have the appropriate resources to share experiment results or share GPU infrastructure, resulting in a lack of reproducibility and ad-hoc resource management. This frustration due to a lack of high-quality resources causes slow progress and is a common reason why ML projects fail.  
 
-In this blog post, we’ll see firsthand how HPE Machine Learning Development Environment can remove infrastructure code in a real-world research script and, at the same time, provide out-of-the-box distributed training, checkpointing, hyperparameter search, and visualization functionality, drastically accelerating research teams’ capabilities. We’ll also touch on the features that allow teams to collaborate effectively. 
+In this blog post, you'll get to see firsthand how HPE Machine Learning Development Environment can remove infrastructure code in a real-world research script and, at the same time, provide out-of-the-box distributed training, checkpointing, hyperparameter search, and visualization functionality, drastically accelerating research teams’ capabilities. You'll also learn about features that allow teams to collaborate effectively.. 
 
 If you are interested in more details about how this example was developed, take a look at the Appendix. For a full, in-depth, model porting guide, check out this [model porting guide.](https://docs.determined.ai/latest/tutorials/pytorch-porting-tutorial.html) This [repository](https://github.com/ighodgao/determined_medmnist_e2e)contains all the code referenced in this post, as well as instructions on how to run it. 
 
