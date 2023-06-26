@@ -202,7 +202,7 @@ To get started, we’ll take a look at the original training script provided [he
 
 This script contains all the functionality needed to download the dataset as well as train and test the model (a commonly used convolutional neural network architecture – ResNet), on the PathMNIST data. 
 
-The original script has some boilerplate code that can be removed since HPE Machine Learning Development Environment handles functionality such as distributed training and experiment visualization. For a full guide to model porting, refer to the [model porting guide](https://hpe-mlde.determined.ai/latest/tutorials/pytorch-porting-tutorial.html#pytorch-porting-tutorial). Here, we’ll walk through the steps taken to port the code to HPE Machine Learning Development Environment using the PyTorch API. The PyTorch API is a high-level API which allows you to utilize the full functionality of HPE Machine Learning Development Environment out-of-the-box. 
+The original script has some boilerplate code that can be removed since HPE Machine Learning Development Environment handles functionality such as distributed training and experiment visualization. For a full guide to model porting, refer to the [model porting guide](https://hpe-mlde.determined.ai/latest/tutorials/pytorch-porting-tutorial.html#pytorch-porting-tutorial). Walk through the steps taken to port the code to HPE Machine Learning Development Environment using the PyTorch API. The PyTorch API is a high-level API which allows you to utilize the full functionality of HPE Machine Learning Development Environment out-of-the-box. 
 
 ## Step 1.1: Connect to HPE Machine Learning Development Environment  
 
@@ -226,11 +226,11 @@ det user whoami
 
 Refer to the Determined User Guide and the Reference Page for more information on how to interact with the cluster.  
 
-*In steps 1.2 – 1.4, we’re going to describe how to port this model to HPE Machine Learning Development Environment step-by-step, (model_def.py). If you are interested in running the final training job, skip to step 1.5.* 
+*In steps 1.2 - 1.4, I'm going to describe how to port this model to HPE Machine Learning Development Environment step-by-step, (model_def.py). If you are interested in running the final training job, skip to step 1.5.* 
 
 ## Step 1.2: Port model definition  
 
-To train your own custom model using one of Determined’s high level APIs, such as the PyTorch API, you need to port your code to the API first. We provide a template of all the functions Determined needs to run your training loop [here](https://docs.determined.ai/latest/training/apis-howto/api-pytorch-ug.html#pytorch-trial). Fill them out one-by-one to port your code. Once these functions are populated, Determined can use these along with the provided configuration file, to run your experiment. 
+To train your own custom model using one of Determined’s high level APIs, such as the PyTorch API, you need to port your code to the API first. A template of all the functions Determined needs to run your training loops is provided [here](https://docs.determined.ai/latest/training/apis-howto/api-pytorch-ug.html#pytorch-trial). Fill them out, one-by-one, to port your code. Once these functions are populated, Determined can use these, along with the provided configuration file, to run your experiment. 
 
 To start, create a class definition that inherits from PyTorchTrial (this is the template referred to above). Create a context (line 29). This is like an interface to the Determined master, allowing you to communicate back and forth with it. Also include the model, optimizer, and criterion in the initialization function so that Determined is aware of them. Make each object an attribute of the class as shown below and transfer relevant hyperparameters to `config.yaml`. As shown here, we can obtain hyperparameters defined in this configuration file by calling `self.context.get_hparam()`, making it easier to change these hyperparameters without modifying training code.  
 
@@ -266,7 +266,7 @@ class MyMEDMnistTrial(PyTorchTrial):
 
 ## Step 1.3 Port data loaders  
 
-Next, we’ll port the training and evaluation data loaders to the following class functions as follows. This is the code that trains one batch of data. You no longer need the standard for loop to iterate over batches or epochs inside these functions, since Determined will handle the training loop for you. 
+Next, port the training and evaluation data loaders to the following class functions as follows. This is the code that trains one batch of data. You no longer need the standard for loop to iterate over batches or epochs inside these functions, since Determined will handle the training loop for you. 
 
 ```python
     def build_training_data_loader(self) -> DataLoader:
@@ -301,11 +301,11 @@ Next, we’ll port the training and evaluation data loaders to the following cla
         return train_loader
 ```
 
-In each function, we initialize and return the relevant PyTorch DataLoader object (e.g. `val_loader from build_validation_data_loader`, and `train_loader in build_training_data_loader`).  
+In each function, initialize and return the relevant PyTorch DataLoader object (e.g. `val_loader from build_validation_data_loader`, and `train_loader in build_training_data_loader`).  
 
 ## Step 1.4 Port training and evaluation functions 
 
-Finally, we’ll port our training and evaluation functions to the following class functions by including the relevant steps to train and evaluate our model on one batch of data. Here, make sure to remove the for-loop iterating over epochs and include only the relevant code corresponding to one data batch. HPE Machine Learning Development Environment handles the training loop behind the scenes.  
+Finally, port your training and evaluation functions to the following class functions by including the relevant steps to train and evaluate the model on one batch of data. Here, make sure to remove the for-loop iterating over epochs and include only the relevant code corresponding to one data batch. HPE Machine Learning Development Environment handles the training loop behind the scenes.  
 
 ```python
     def train_batch(
